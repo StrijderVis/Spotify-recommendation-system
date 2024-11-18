@@ -10,10 +10,6 @@ load_dotenv('Acodes.env')
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 
-print(client_id)
-print(client_secret)
-print("hello world")
-
 # Definieer de scopes die je wilt gebruiken
 scope = "user-library-read user-top-read playlist-read-private playlist-modify-public"
 
@@ -26,6 +22,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
 # Print de URL voor gebruikers om in te loggen
 auth_url = sp.auth_manager.get_authorize_url()
 print("Ga naar de volgende URL om in te loggen:", auth_url)
+input("voer iets in om verder te gaan nadat je hebt ingelogd")
 
 # Wacht op redirect en pak de token
 token_info = sp.auth_manager.get_access_token(as_dict=False)
