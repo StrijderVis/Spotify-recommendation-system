@@ -16,16 +16,19 @@ scope = "user-library-read user-top-read playlist-read-private playlist-modify-p
 # Initialiseer de Spotify OAuth2
 sp_oauth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope)
 
+# Titel en logo
+st.markdown(""" 
+# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/768px-Spotify_logo_without_text.svg.png" alt="Logo" style="width:100px;"> Song Explorer voor Spotify 
+""", unsafe_allow_html=True)
+
+st.text("")
+st.text("")
+
 # Functie om de gebruiker naar de inlogpagina te leiden
 def login():
     auth_url = sp_oauth.get_authorize_url()
     st.markdown(f"<a href='{auth_url}' target='_blank'>Klik hier om in te loggen bij Spotify</a>", unsafe_allow_html=True)
 
-st.markdown(""" 
-# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/768px-Spotify_logo_without_text.svg.png" alt="Logo" style="width:100px;"> Song Explorer voor Spotify 
-""", unsafe_allow_html=True)
-st.text("")
-st.text("")
 # Toon een knop die de gebruiker naar de inlogpagina leidt
 if "code" not in st.query_params:
     if st.button("Login met Spotify"):
@@ -34,8 +37,7 @@ if "code" not in st.query_params:
 # Wacht op redirect en pak de token
 if "code" in st.query_params:
     code = st.query_params["code"]
-    sp_oauth.get_access_token(code)
-    token_info = sp_oauth.get_cached_token()
+    token_info = sp_oauth.get_access_token(code)
     sp = spotipy.Spotify(auth=token_info['access_token'])
 
     # Gebruik Spotipy zoals eerder
@@ -95,27 +97,24 @@ if "code" in st.query_params:
     if search_track_id:
         seed_tracks.extend([search_track_id] * 10)
 
-    # \/ check om te kijken of de seed_tracks goed generate
-    #st.write(seed_tracks)
-
     # Beperk het aantal seed_tracks tot maximaal 5, anders gaat de spotify API boos doen >:(
     seed_tracks = seed_tracks[:5]
 
     ## AANBEVOLEN NUMMERS STUK
     st.header("Aanbevolen nummers:")
 
-    #Slider zodat de gebruiker zelf kan instellen hoveel aanbevolen nummers ze willen.
+    # Slider zodat de gebruiker zelf kan instellen hoeveel aanbevolen nummers ze willen
     songamount = st.slider("Aantal aanbevolen nummers", min_value=10, max_value=100, step=10)
     st.write("")
     st.write("")
 
-    #Maak de aanbevelingen
+    # Maak de aanbevelingen
     st.subheader("Aanbevolen nummers:")
     if seed_tracks:
         recommendations = sp.recommendations(seed_tracks=seed_tracks, limit=songamount)
-        recommended_track_details = [(item['name'], item['artists'][0]['name']) for item in recommendations['tracks']]
+        recommended_track_details = [(item['name'], item['artists'][0]['name'], item['id']) for item in recommendations['tracks']]
         with st.expander("Aanbevolen nummers"):
-            for track, artist in recommended_track_details:
+            for track, artist, _id in recommended_track_details:
                 st.write(f"{track} - {artist}")
         st.write("")
         
