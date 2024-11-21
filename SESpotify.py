@@ -1,15 +1,11 @@
 import streamlit as st
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from dotenv import load_dotenv
 import os
 
-# Laad het .env bestand
-load_dotenv('Acodes.env')
-
 # Haal de CLIENT_ID en CLIENT_SECRET op uit het .env bestand
-client_id = os.getenv("CLIENT_ID")
-client_secret = os.getenv("CLIENT_SECRET")
+client_id = "4249f150dfde488f9bd460e7ccc0eb16"
+client_secret = "690045e5c24b4d838f9073b1dca118a3"
 redirect_uri = "https://sespotify.streamlit.app/"
 scope = "user-library-read user-top-read playlist-read-private playlist-modify-public"
 
