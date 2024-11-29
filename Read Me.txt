@@ -1,0 +1,11 @@
+Zelf nog een Acodes.env file aanmaken met het volgende erin:
+
+CLIENT_ID=
+CLIENT_SECRET=
+redirect_uri= 'http://localhost:8501'
+
+Bij de CLIENT_ID en CLIENT_SECRET moet je de codes neerzetten van je eigen Spotify dev app. 
+Daarnaast moet je ook bij je spotify dev app instellen dat de redirect uri hetzelfde word als in je Acodes.env (dus normaal http://localhost:8501)
+
+!! BELANGRIJK !!
+Streamlit runt meestal op port 8501, als dit anders is moet je het ook aanpassen in de Acodes.env file en op je spotify dev app!
