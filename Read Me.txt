@@ -1,3 +1,6 @@
+app.py is de applicatie die lokaal op streamlit runt, SESpotify is voor de published versie op streamlit.
+
+
 Zelf nog een Acodes.env file aanmaken met het volgende erin:
 
 CLIENT_ID=
