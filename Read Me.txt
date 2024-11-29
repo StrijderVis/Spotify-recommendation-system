@@ -1,3 +1,6 @@
+!!! SPOTIFY HEEFT HUN API DICHTGESCHROEF! HIERDOOR WERKT DE APPLICATIE NIET MEER :C !!!
+
+
 app.py is de applicatie die lokaal op streamlit runt, SESpotify is voor de published versie op streamlit.
 
 
